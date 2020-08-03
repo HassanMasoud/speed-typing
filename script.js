@@ -7,7 +7,10 @@ quoteInputElement.addEventListener("input", () => {
   const inputValueArray = quoteInputElement.value.split("");
   quoteSpanArray.forEach((characterSpan, index) => {
     const character = inputValueArray[index];
-    if (character === characterSpan.innerText) {
+    if (character == null) {
+      characterSpan.classList.remove("correct");
+      characterSpan.classList.remove("incorrect");
+    } else if (character === characterSpan.innerText) {
       characterSpan.classList.add("correct");
       characterSpan.classList.remove("incorrect");
     } else {
