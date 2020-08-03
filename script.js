@@ -5,19 +5,25 @@ const quoteInputElement = document.querySelector("#quoteInput");
 quoteInputElement.addEventListener("input", () => {
   const quoteSpanArray = quoteDisplayElement.querySelectorAll("span");
   const inputValueArray = quoteInputElement.value.split("");
+
+  let correct = true;
   quoteSpanArray.forEach((characterSpan, index) => {
     const character = inputValueArray[index];
     if (character == null) {
       characterSpan.classList.remove("correct");
       characterSpan.classList.remove("incorrect");
+      correct = false;
     } else if (character === characterSpan.innerText) {
       characterSpan.classList.add("correct");
       characterSpan.classList.remove("incorrect");
     } else {
       characterSpan.classList.remove("correct");
       characterSpan.classList.add("incorrect");
+      correct = false;
     }
   });
+
+  if (correct) renderNewQuote();
 });
 
 function getRandomQuote() {
@@ -34,7 +40,7 @@ async function renderNewQuote() {
     characterSpan.innerText = character;
     quoteDisplayElement.appendChild(characterSpan);
   });
-  quoteInputElement.innerText = null;
+  quoteInputElement.value = null;
 }
 
 renderNewQuote();
